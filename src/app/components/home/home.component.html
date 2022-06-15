@@ -1,0 +1,26 @@
+<div class="col-lg-12  text-center mt-5" *ngIf="identity">
+
+  <h1 class="h1-strong">Hola {{identity.name}}, bienvenido a Pepole </h1>
+  <h4>donde podrás contactarte con tus amigos</h4>
+
+  <p>
+    <a class="btn btn-danger btn-lg "  [routerLink]="['/']"  role="button">
+      Mi Perfil
+    </a>
+    <a class="btn btn-primary btn-lg "   [routerLink]="['/timeline']"  role="button">
+      TimeLine
+    </a>
+    <a class="btn btn-warning btn-lg "  [routerLink]="['/gente']" role="button">
+      Gente
+    </a>
+  </p>
+
+</div>
+
+<div class="col-lg-12 text-center" *ngIf="!identity">
+  <h2>Gracias por estar en Pepole</h2>
+  <a class="btn btn-warning btn-lg mt-4 " [routerLink]="['/login']" role="button">
+    Iniciar Sesión
+  </a>
+</div>
+

@@ -1,0 +1,39 @@
+<h2 class=" mt-5 col-lg-5 text-right offset-lg-6" style="position:relative; left:20px;">Rellene el formulario para entrar a la app</h2>
+
+
+
+<div class="alert alert-danger" *ngIf="status == 'error'">
+  El registro no se ha podido completar, quizás tu correo ya este en uso,
+  intentalo nuevamente
+</div>
+
+<div class="alert alert-success " *ngIf="status == 'success'">
+  Registro completado correctamente, <a [routerLink]="['/login']">Logueate Aquí</a>
+</div>
+
+<div class=" d-flex justify-content-around mt-4">
+
+
+  <img src="../../../assets/img/undraw_moment_to_remember_re_t18u (1).svg" class="col-lg-4" alt="">
+
+
+    <form #loginForm="ngForm"  class="col-lg-5" (ngSubmit)="onSubmit()" >
+
+      <label for="name">Correo Electrónico</label>
+      <input type="email" class="form-control"  name="name" #email="ngModel" [(ngModel)]="user.email">
+      <span *ngIf="!email.valid && email.touched">
+        El nombre es obligatorio
+      </span>
+
+      <label for="name">Password</label>
+      <input type="password" class="form-control"  name="password" #password="ngModel" [(ngModel)]="user.password">
+      <span *ngIf="!password.valid && password.touched">
+        El nombre es obligatorio
+      </span>
+
+      <input type="submit" class="btn btn-success mt-4" [disabled]="!loginForm.form.valid" value="Iniciar Sesión">
+
+    </form>
+
+
+</div>

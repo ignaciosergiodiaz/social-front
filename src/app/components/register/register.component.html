@@ -1,0 +1,53 @@
+<h2 class=" mt-5">Registrese Para disfrutar de Pepole...</h2>
+
+
+<div class="alert alert-danger" *ngIf="status == 'error'">
+  El registro no se ha podido completar, quizás tu correo ya este en uso,
+  intentalo nuevamente
+</div>
+
+<div class="alert alert-success " *ngIf="status == 'success'">
+  Registro completado correctamente, <a [routerLink]="['/login']">Logueate Aquí</a>
+</div>
+
+<div class=" d-flex justify-content-around mt-4">
+
+    <form #form="ngForm"  class="col-lg-5" (ngSubmit)="onSubmit(form)" >
+
+      <label for="name">Nombre</label>
+      <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="user.name">
+      <span *ngIf="!name.valid && name.touched">
+        El nombre es obligatorio
+      </span>
+
+      <label for="name">Apellidos</label>
+      <input type="text" class="form-control" name="surname"  #surname="ngModel" [(ngModel)]="user.surname">
+      <span *ngIf="!surname.valid && surname.touched">
+        El nombre es obligatorio
+      </span>
+
+      <label for="name">Apodo</label>
+      <input type="text"  class="form-control"  name="nick" #nick="ngModel" [(ngModel)]="user.nick">
+      <span *ngIf="!nick.valid && nick.touched">
+        El nombre es obligatorio
+      </span>
+
+      <label for="name">Correo Electrónico</label>
+      <input type="email" class="form-control"  name="name" #email="ngModel" [(ngModel)]="user.email">
+      <span *ngIf="!name.valid && name.touched">
+        El nombre es obligatorio
+      </span>
+
+      <label for="name">Password</label>
+      <input type="password" class="form-control"  name="password" #password="ngModel" [(ngModel)]="user.password">
+      <span *ngIf="!password.valid && password.touched">
+        El nombre es obligatorio
+      </span>
+
+      <input type="submit" class="btn btn-success mt-4" [disabled]="!form.form.valid" value="Registrar">
+
+    </form>
+
+  <img src="../../../assets/img/undraw_moment_to_remember_re_t18u (1).svg" class="col-lg-4" alt="">
+
+</div>

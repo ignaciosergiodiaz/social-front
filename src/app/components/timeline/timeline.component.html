@@ -1,0 +1,106 @@
+<h3 class="offset-lg-1" style="position: relative; left:-52px;" >Publicaciones</h3>
+
+<div class="d-flex justify-content-around mt-4">
+
+  <div class="publications col-lg-6 ">
+
+    <div *ngFor="let publication of publications" class="item-publication">
+
+      <div class="list-group ">
+
+        <div class="list-group-item">
+          <p>
+            {{publication.text}}
+          </p>
+
+          <h6>{{publication.user.name + ' ' + publication.user.surname}}</h6>
+
+
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <div class="data-user col-lg-4 justify-content-center">
+
+    <div class="avatar text-center">
+      <img src="{{url + 'get-image-user/'+identity.image}}" width="150" alt="avatar" *ngIf="identity.image"/>
+    </div>
+
+    <div class="data-user mt-2  text-center">
+      Nombre de usuario
+      <p class="nickname  text-center">{{identity.nick}}</p>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="stats d-flex justify-content-around" *ngIf="stats">
+      <div class="following-data">
+        <a href="#">
+          <span class="label-stats">
+            Siguiendo
+          </span>
+          <div class="number-stats text-center mt-2">
+            {{stats.following}}
+          </div>
+
+        </a>
+      </div>
+      <div class="following-data">
+        <a href="#">
+          <span class="label-stats">
+            Seguidores
+          </span>
+          <div class="number-stats text-center mt-2">
+            {{stats.followed}}
+          </div>
+
+        </a>
+      </div>
+      <div class="following-data">
+        <a href="#">
+          <span class="label-stats">
+            Publicaciones
+          </span>
+          <div class="number-stats text-center mt-2">
+            {{stats.publications}}
+          </div>
+
+        </a>
+      </div>
+    </div>
+
+    <br>
+
+    <div id="new Publication" class="col-lg-12 mt-4  ">
+
+      <h3 class="text-center">Crear publicación</h3>
+
+      <form #newPubForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-12">
+        <p>
+          <label for="¿Que estás pensando?">¿Que estás pensando?</label>
+          <textarea name="text" #text="ngModel" [(ngModel)]="publication.text" class="form-control" ></textarea>
+        </p>
+        <p>
+          <label for="">Sube tu foto</label>
+          <input type="file" placeholder="Subir Imagen">
+        </p>
+
+        <input type="submit" value="Enviar" class="btn btn-success offset-lg-9" [disabled]="!newPubForm.form.valid">
+
+      </form>
+
+
+    </div>
+
+
+  </div>
+
+
+
+</div>
+
