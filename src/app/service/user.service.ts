@@ -85,7 +85,7 @@ export class UserService {
     let headers = new HttpHeaders().set('Content-type', 'application/json')
                                    .set('Authorization', this.getToken());
 
-    return this._http.put(this.user+'update-user'+user._id, params, {headers: headers})
+    return this._http.put(this.url+'update-user/'+user._id, params, {headers: headers})
 
   }
 

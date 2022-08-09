@@ -1,4 +1,22 @@
 .data-user{
   background-color: #fff;
-  padding:0.8rem;
+}
+
+.sidebar{
+  position:relative ;
+  top:-40px;
+}
+
+.nickname{
+  padding: 1.3rem;
+  text-align: center;
+  font-size:1.3rem;
+}
+
+.submit{
+  float:right;
+}
+
+.avatar{
+  text-align: center;
 }

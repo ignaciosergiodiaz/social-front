@@ -9,8 +9,6 @@ import { PublicationService } from 'src/app/service/publication.service';
 import { UploadService } from 'src/app/service/upload.service';
 import { UserService } from 'src/app/service/user.service';
 
-
-
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -38,6 +36,10 @@ export class SidebarComponent implements OnInit {
   public _id: any;
   public stats: any ;
   public publication: Publication;
+
+  csvInputChange(fileInputEvent: any) {
+    console.log(fileInputEvent.target.files[0]);
+  }
 
   constructor(private us: UserService,
               private _route: ActivatedRoute,
@@ -97,12 +99,6 @@ export class SidebarComponent implements OnInit {
 
         }
 
-
-
-    )
-
-
-
-  }
+    )}
 
 }

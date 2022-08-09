@@ -1,57 +1,8 @@
-  <div class="data-user col-lg-12">
+<mat-card class="data-user col-lg-11 mat-elevation-z4">
 
-    <div class="avatar text-center">
-      <img src="{{url + 'get-image-user/'+identity.image}}" width="150" alt="avatar" *ngIf="identity.image"/>
-    </div>
+  <div id="new Publication" class="col-lg-12">
 
-    <div class="data-user mt-2  text-center">
-      Nombre de usuario
-      <p class="nickname  text-center">{{identity.nick}}</p>
-      <div class="clearfix"></div>
-    </div>
-
-
-    <div class="stats d-flex justify-content-around" *ngIf="stats">
-      <div class="following-data">
-        <a href="#">
-          <span class="label-stats">
-            Siguiendo
-          </span>
-          <div class="number-stats text-center mt-2">
-            {{stats.following}}
-          </div>
-
-        </a>
-      </div>
-      <div class="following-data">
-        <a href="#">
-          <span class="label-stats">
-            Seguidores
-          </span>
-          <div class="number-stats text-center mt-2">
-            {{stats.followed}}
-          </div>
-
-        </a>
-      </div>
-      <div class="following-data">
-        <a href="#">
-          <span class="label-stats">
-            Publicaciones
-          </span>
-          <div class="number-stats text-center mt-2">
-            {{stats.publications}}
-          </div>
-
-        </a>
-      </div>
-    </div>
-
-    <br>
-
-    <div id="new Publication" class="col-lg-12 mt-4  ">
-
-      <h3 class="text-center">Crear publicación</h3>
+    <h3 class="text-center">Crear publicación</h3>
 
       <div class="alert alert-success" *ngIf="status == 'success'">
         Publicatión enviada correctamente
@@ -62,21 +13,72 @@
       </div>
 
       <form #newPubForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-12">
-        <p>
-          <label for="¿Que estás pensando?">¿Que estás pensando?</label>
-          <textarea name="text" #text="ngModel" [(ngModel)]="publication.text" class="form-control" ></textarea>
-        </p>
-        <p>
-          <label for="">Sube tu foto</label>
-          <input type="file" placeholder="Subir Imagen">
-        </p>
 
-        <input type="submit" value="Enviar" class="btn btn-success offset-lg-9" [disabled]="!newPubForm.form.valid">
+          <mat-form-field appearance="fill" class="col-lg-12">
+            <mat-label>¿Qué estás pensando?</mat-label>
+            <textarea matInput name="text" #text="ngModel" [(ngModel)]="publication.text"
+            class="form-control"></textarea>
+          </mat-form-field>
+
+          <input #csvInput hidden="true" type="file" onclick="this.value=null"
+          (change)="csvInputChange($event)" accept=".csv"/>
+
+          <button mat-flat-button color="warn" (click)="csvInput.click()">
+            <span class="material-icons">
+              photo_camera
+            </span>
+          </button>
+
+          <button type="submit" class="submit" value="Enviar"
+            mat-raised-button color="primary"
+          [disabled]="!newPubForm.form.valid">Enviar</button>
 
       </form>
 
+  </div>
 
+  <div class="data-user">
+    <p class="nickname">Usuario {{identity.nick}}</p>
+  </div>
+
+  <div class="stats d-flex justify-content-around" *ngIf="stats">
+
+    <div class="following-data">
+        <span class="label-stats">
+          Siguiendo
+        </span>
+        <div class="number-stats text-center">
+          {{stats.following}}
+        </div>
     </div>
 
+    <div class="following-data">
+      <a href="#">
+        <span class="label-stats">
+          Seguidores
+        </span>
+        <div class="number-stats text-center">
+          {{stats.followed}}
+        </div>
+      </a>
+    </div>
+
+    <div class="following-data">
+      <a href="#">
+        <span class="label-stats">
+          Publicaciones
+        </span>
+        <div class="number-stats text-center">
+          {{stats.publications}}
+        </div>
+      </a>
+    </div>
 
   </div>
+
+  <div class="avatar">
+    <img src="{{url + 'get-image-user/'+identity.image}}" class="mt-4 mat-elevation-z5"
+      width="120" height="150" alt="avatar" *ngIf="identity.image"/>
+  </div>
+
+</mat-card>

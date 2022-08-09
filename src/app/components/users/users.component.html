@@ -1,37 +1,31 @@
-<h3 class="offset-lg-1" style="position: relative; left:-99px;" >Usuarios Activos</h3>
+<div class="row">
 
-<div class="d-flex justify-content-between ">
+  <h1 class="offset-lg-3">Gente</h1>
 
-  <div class="row col-lg-8">
+  <div class="col-lg-8" style="position: relative;top:-8px;">
+    <mat-card *ngFor="let user of users"  class="mt-2">
 
-    <div class="list-group ">
-      <div *ngFor="let user of users" class="list-group-item " >
-        <div class="list-group">
+      <mat-selection-list>
+        <mat-list-item >
+          <div class="avatar-btn offset-lg-1" >
+            <img src="{{url + 'get-image-user/'+user.image}}" class="avatar-img" alt="">
+          </div>
+          <div class="data  col-4 col-sm-3 col-xs-5 col-lg-4" style="margin-left:20px; margin-top:10px; ">
+            {{user.name}}
+            <br>
+            {{user.surname}}
+          </div>
 
-            <div class="row user_name  ">
+          <div class=" offset-lg-4 offset-sm-6 offset-md-6 offset-xs-1">
 
-              <div class="image_user pull-left col-lg-2 " >
-                <img src="{{url + 'get-image-user/'+ user.image}} " class="avatar-default"  alt="">
-              </div>
-
-              <a href="#" class="col-lg-2 data-user">
-                <p>{{user.name+ '' + user.surname}}</p>
-                <p style="position: relative; top:-20px;">{{user.nick}}</p>
-              </a>
-
-            </div>
-
-            <!-- Seguir / dejar de seguir -->
-
-          <div class="justify-content-end d-flex" style="position: relative; top:-40px;">
-            <button class="btn btn-success" (click)="followUser(user._id)"  *ngIf="follows.indexOf(user._id) < 0">
+            <button class="btn btn-success" mat-raised-button color="primary" (click)="followUser(user._id)"  *ngIf="follows.indexOf(user._id) < 0">
               <span class="material-icons-outlined">
                 add_circle
               </span>
               seguir
             </button>
 
-              <button class="btn btn-danger"
+              <button mat-raised-button color="accent" class="btn btn-danger"
               (click)="unfollowUser(user._id)"
               *ngIf="follows.indexOf(user._id) >= 0"
 
@@ -47,45 +41,40 @@
                   dejar de seguir
                 </span>
 
-
-                <ng-template #following>
+                <ng-template   #following>
                   <span class="material-icons-outlined">
                     check_circle
                   </span>
                   siguiendo
                 </ng-template>
 
-
               </button>
-
 
           </div>
 
+        </mat-list-item>
+      </mat-selection-list>
 
-        </div>
-      </div>
-    </div>
+    </mat-card>
 
-
-    <div  class="pagination mt-4">
-      <ul class="pagination" style="background: #fff;">
-        <li class="page-item disabled"  *ngIf="page >= 1 ">
-          <span  [routerLink]="['/gente', prev_page ]"class="page-link">Previous</span>
-        </li>
-
-        <li class="page-item" *ngIf="pages != page">
-          <a class="page-link" [routerLink]="['/gente', next_page]" href="#">Next</a>
-        </li>
-      </ul>
+    <div class="pagination mt-4 offset-lg-9">
+        <button [routerLink]="['/gente', prev_page ]" class="page-item" mat-raised-button color="basic" *ngIf="page > 1">
+          <div class="page-link">
+            Anterior
+          </div>
+        </button>
+        <button [routerLink]="['/gente', next_page]"  class="page-item" mat-raised-button color="basic" *ngIf="pages != page">
+          <div class="page-link" href="#">
+            Siguiente
+          </div>
+        </button>
     </div>
 
   </div>
 
-  <div class="row col-lg-4 ">
+  <div class="col-lg-3 ">
     <app-sidebar></app-sidebar>
-
   </div>
-
-
 
 </div>
+

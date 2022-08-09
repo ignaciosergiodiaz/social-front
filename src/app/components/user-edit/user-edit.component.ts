@@ -73,11 +73,7 @@ export class UserEditComponent implements OnInit {
       },
       error => {
         console.log(error)
-      }
-
-
-    )
-
+      })
   }
 
 }

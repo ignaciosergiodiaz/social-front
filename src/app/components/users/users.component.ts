@@ -6,6 +6,7 @@ import { FollowService } from 'src/app/service/follow.service';
 import { GLOBAL } from 'src/app/service/global';
 import { UploadService } from 'src/app/service/upload.service';
 import { UserService } from 'src/app/service/user.service';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-user',
@@ -32,6 +33,9 @@ export class UsersComponent implements OnInit {
   public pages : any ;
   public _id: any;
 
+  pageEvent: PageEvent;
+
+
   constructor(private us: UserService,
               private _route: ActivatedRoute,
               private up: UploadService,
@@ -45,12 +49,23 @@ export class UsersComponent implements OnInit {
     this.identity = this.us.getIdentity();
     this.token = this.us.getToken();
     this.url = GLOBAL.url ;
+
   }
 
   ngOnInit(): void {
     console.log('hola el componente users esta cargando bien...');
     this.actualPage();
 
+  }
+
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
   }
 
   actualPage(){

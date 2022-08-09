@@ -32,7 +32,6 @@ export class PublicationService {
     let headers = new HttpHeaders().set('Content-type', 'application/json')
                                    .set('Authorization', this.getToken()) ;
 
-
     return this._http.get<Publication>(this.url+'publications/'+page, {headers:headers})
 
   }
@@ -41,7 +40,6 @@ export class PublicationService {
 
     let headers = new HttpHeaders().set('Content-type', 'application/json')
                                    .set('Authorization',token) ;
-
 
     return this._http.delete<Publication>(this.url+'publication/'+id, {headers:headers})
 
@@ -60,6 +58,5 @@ export class PublicationService {
     return this.token ;
 
   }
-
 
 }

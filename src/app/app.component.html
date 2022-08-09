@@ -1,117 +1,66 @@
+<mat-drawer-container class="example-container " autosize>
 
+  <mat-toolbar class="mat-elevation-z3">
 
-<div class="navigation col-lg-12 shadow" >
+    <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
 
-  <nav class="navbar navbar-light"   >
-    <div class="container">
-      <div class="navbar-header">
+    <span>Pepole</span>
 
-        <a href="#" class="navbar-brand">
-          <span class="material-icons">
-            timeline
-          </span>
-          Pepole</a>
-      </div>
-      <ul class="navbar-nav me-auto" *ngIf="identity" >
-        <li>
-          <a href="#">
-            <span class="material-icons-outlined">
-              home
-            </span>
-            Inicio
-          </a>
-          <a [routerLink]="['/timeline']">
-            <span class="material-icons-outlined">
-              rss_feed
-            </span>
-            TimeLine
-          </a>
-          <a [routerLink]="['gente']">
-            <span class="material-icons-outlined">
-              groups
-            </span>
-            Gente
-          </a>
-        </li>
-      </ul>
+    <div class="example-spacer"></div>
 
-
-      <ul class="nav navbar navbar-right" >
-
-        <ul class="navbar-nav d-flex" *ngIf="!identity">
-          <li>
-
-            <a [routerLink]="['/login']">
-              <span class="material-icons-outlined" >
-                login
-              </span>
-              Login
-            </a>
-            <a  [routerLink]="['/registro']">
-              <span class="material-icons-outlined">
-                person
-              </span>
-              Register
-            </a>
-          </li>
-        </ul>
-
-        <li class="avatar">
-          <!-- cargar imagen de usuario-->
-        </li>
-
-
-         <div class="dropdown" *ngIf="identity" style="margin-right:50px;" >
-          <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="{{url+'get-image-user/'+identity.image}}" class="header-img responsive-img"  alt="">
-
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
-            <li>
-              <a class="dropdown-item" [routerLink]="['/login']">
-                <span class="material-icons-outlined">
-                  <span class="material-icons">
-                    login
-                    </span>
-                </span>
-                Login</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">
-                <span class="material-icons-outlined">
-                  <span class="material-icons">
-                    perm_identity
-                    </span>
-                </span>
-                Mi perfil</a>
-            </li>
-            <li>
-
-              <a class="dropdown-item" [routerLink]="['/mis-datos']">
-                <span class="material-icons-outlined">
-                  contact_page
-                </span>
-                Mis datos</a>
-            </li>
-            <li>
-              <a class="dropdown-item" (click)="logout()" href="#">
-                <span class="material-icons-outlined">
-                  logout
-                </span>
-                Logout
-              </a>
-            </li>
-          </ul>
-        </div>
-
-      </ul>
-
-
+    <div class="avatar-btn" [matMenuTriggerFor]="menu" style="cursor:pointer;">
+      <img src="{{url + 'get-image-user/'+identity.image}}" class="avatar-img" alt="">
     </div>
 
-  </nav>
-</div>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>account_circle</mat-icon>
+        <span>Mi Perfil</span>
+      </button>
 
-<div class="container mt-4">
-  <router-outlet></router-outlet>
-</div>
+      <button mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar Sesión</span>
+      </button>
+    </mat-menu>
+
+  </mat-toolbar>
+
+  <mat-drawer #drawer class="sidenav mat-elevation-z4" mode="side" opened>
+
+    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+
+    <mat-list>
+      <mat-list-item [routerLink]="['/home']" [routerLinkActive]="['active']" class="button-menu">
+        <span class="material-icons icon-sidenav  ">
+          home
+        </span>
+        Inicio
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/timeline']" [routerLinkActive]="['active']" class="button-menu">
+        <span class="material-icons icon-sidenav">
+          view_timeline
+        </span>
+        Publicaciones
+      </mat-list-item>
+      <mat-list-item [routerLink]="['gente/', 1]" [routerLinkActive]="['active']" class="button-menu">
+        <span class="material-icons icon-sidenav" >
+          groups
+        </span>
+        Gente
+      </mat-list-item>
+     </mat-list>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <div class="container mt-4">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</mat-drawer-container>
+
+
+

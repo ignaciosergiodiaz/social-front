@@ -16,6 +16,14 @@ export class AppComponent implements OnInit, DoCheck{
   public token: any;
   public url: string ;
 
+  public _id: any;
+  public   showFiller = false;
+
+  mobileQuery: MediaQueryList;
+
+  fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
+
+
   constructor(
     private _userService: UserService,
     private _router: Router

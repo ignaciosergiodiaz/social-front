@@ -34,16 +34,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/styles.scss",
-              "./node_modules/bootstrap/scss/bootstrap.scss",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap-grid.css"
-
             ],
             "scripts": [
-              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
               "./node_modules/jquery/dist/jquery.min.js"
-
-
             ]
           },
           "configurations": {
@@ -110,7 +106,8 @@
               "src/assets"
             ],
             "styles": [
-              "assets/styles.scss"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./src/styles.scss"
             ],
             "scripts": []
           }
