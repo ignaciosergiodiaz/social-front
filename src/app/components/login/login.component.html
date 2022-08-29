@@ -1,39 +1,49 @@
-<h2 class=" mt-5 col-lg-5 text-right offset-lg-6" style="position:relative; left:20px;">Rellene el formulario para entrar a la app</h2>
+<div class="row col-lg-10 offset-lg-1 login">
 
+  <div class="alert alert-danger" *ngIf="status == 'error'">
+    El registro no se ha podido completar, quizás tu correo ya este en uso,
+    intentalo nuevamente
+  </div>
 
+  <div class="alert alert-success " *ngIf="status == 'success'">
+    Registro completado correctamente, <a [routerLink]="['/login']">Logueate Aquí</a>
+  </div>
 
-<div class="alert alert-danger" *ngIf="status == 'error'">
-  El registro no se ha podido completar, quizás tu correo ya este en uso,
-  intentalo nuevamente
-</div>
+  <div class="row">
 
-<div class="alert alert-success " *ngIf="status == 'success'">
-  Registro completado correctamente, <a [routerLink]="['/login']">Logueate Aquí</a>
-</div>
+  <img src="../../../assets/img/undraw_moment_to_remember_re_t18u (1).svg" class="col-9 col-sm-7 offset-sm-3 offset-2 col-lg-4 offset-lg-1" alt="">
 
-<div class=" d-flex justify-content-around mt-4">
+  <div class="row mt-2 col-12 offset-1 col-sm-12 col-md-12 col-lg-5 ">
 
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit()" style="position:relative ;top:20px;">
 
-  <img src="../../../assets/img/undraw_moment_to_remember_re_t18u (1).svg" class="col-lg-4" alt="">
+        <h1>Encuentra a tus amigos en pepol.io</h1>
 
+        <mat-form-field appearance="fill" class="col-10 col-sm-10 col-md-10 ">
+          <mat-label>Correo</mat-label>
+          <input type="email" matInput  name="name" #email="ngModel" [(ngModel)]="user.email">
+        </mat-form-field>
 
-    <form #loginForm="ngForm"  class="col-lg-5" (ngSubmit)="onSubmit()" >
+        <mat-form-field  appearance="fill" class="col-10 col-sm-10 col-md-10 ">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput name="password" #password="ngModel" [(ngModel)]="user.password">
+        </mat-form-field>
+        <br>
 
-      <label for="name">Correo Electrónico</label>
-      <input type="email" class="form-control"  name="name" #email="ngModel" [(ngModel)]="user.email">
-      <span *ngIf="!email.valid && email.touched">
-        El nombre es obligatorio
-      </span>
+        <button type="submit" class="offset-sm-8" mat-raised-button color="primary" style="width:84% ;">
+          Iniciar sesión
+        </button>
 
-      <label for="name">Password</label>
-      <input type="password" class="form-control"  name="password" #password="ngModel" [(ngModel)]="user.password">
-      <span *ngIf="!password.valid && password.touched">
-        El nombre es obligatorio
-      </span>
+        <br>
 
-      <input type="submit" class="btn btn-success mt-4" [disabled]="!loginForm.form.valid" value="Iniciar Sesión">
+        <button [routerLink]="['/registro']" class="mt-2 " mat-raised-button  style="width:84% ;" color="accent">
+          Registrate
+        </button>
 
-    </form>
+      </form>
 
+    </div>
+
+  </div>
 
 </div>

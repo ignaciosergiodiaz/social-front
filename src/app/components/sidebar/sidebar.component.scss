@@ -1,11 +1,10 @@
 .data-user{
   background-color: #fff;
+  border-radius: 20px;
+  top:-10px !important;
+
 }
 
-.sidebar{
-  position:relative ;
-  top:-40px;
-}
 
 .nickname{
   padding: 1.3rem;
@@ -20,3 +19,24 @@
 .avatar{
   text-align: center;
 }
+
+.following-data{
+  text-align: center;
+}
+
+.following-data a{
+  text-decoration: none;
+  color: blue;
+}
+
+
+.following-data a:hover{
+  text-decoration: none;
+  color: rgb(116, 116, 249);
+}
+
+.following-data a:active{
+  text-decoration: none;
+  color: rgb(116, 116, 249);
+}
+

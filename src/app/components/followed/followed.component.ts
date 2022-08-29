@@ -9,16 +9,17 @@ import { UserService } from 'src/app/service/user.service';
 import {PageEvent} from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
+  selector: 'app-followed',
+  templateUrl: './followed.component.html',
+  styleUrls: ['./followed.component.scss'],
   providers: [UserService, UploadService, FollowService]
-
 })
-export class UsersComponent implements OnInit {
+
+export class FollowedComponent implements OnInit {
 
   public title: string;
   public users: any;
+  public user:any;
   public identity: any;
   public token:any ;
   public status: string;
@@ -32,8 +33,7 @@ export class UsersComponent implements OnInit {
   public total: any ;
   public pages : any ;
   public _id: any;
-
-  pageEvent: PageEvent;
+  public pageEvent: PageEvent;
 
   constructor(private us: UserService,
               private _route: ActivatedRoute,
@@ -42,33 +42,23 @@ export class UsersComponent implements OnInit {
               private _router:Router,
               ) {
 
-    this.title = 'Gente' ;
+    this.title = 'Seguidores de' ;
     this.status = '' ;
     this.identity = this.users;
     this.identity = this.us.getIdentity();
     this.token = this.us.getToken();
     this.url = GLOBAL.url ;
-
   }
 
   ngOnInit(): void {
-    console.log('hola el componente users esta cargando bien...');
+    console.log('hola el componente followed esta cargando bien...');
     this.actualPage();
-
-  }
-
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
   }
 
   actualPage(){
     this._route.params.subscribe( params => {
+
+      let user_id = params['id'];
 
       let page = +params['page'] ;
       this.page = page ;
@@ -83,41 +73,51 @@ export class UsersComponent implements OnInit {
         this.prev_page = 1 ;
       }
 
-      this.getUsers(page);
+      this.getUser(user_id, page);
 
     });
   }
 
-  getUsers(page:any){
-    this.us.getUsers(page).subscribe(
+  getFollows(user_id:any, page:any){
+    this.fs.getFollowed(this.token, user_id, page).subscribe(
 
       response => {
-        if(!response.users){
+        if(!response){
           this.status = 'error';
         }else{
 
           console.log(response)
 
-          this.total = response.total ;
-          this.users = response.users;
-          this.pages = response.pages;
-          this.follows  =response.users_following;
-
-          console.log(this.follows);
+            this.total = response.total ;
+            this.followed = response.follows;
+            this.pages = response.pages;
+            this.follows  =response.users_following;
 
           if(page > this.pages){
             this._router.navigate(['/gente', 1]);
           }
-
         }
       },
 
       error => {
         console.log(error)
+      });
+  }
+
+  getUser(user_id:any, page:any){
+    this.us.getUser(user_id).subscribe(
+      response => {
+        if(response.user){
+          this.user = response.user;
+          this.getFollows(user_id, page);
+        }else{
+          this._router.navigate(['/home']);
+        }
+      },
+      error => {
+        console.log(<any>error);
       }
-
     )
-
   }
 
   public followUserOver:any ;
@@ -135,23 +135,18 @@ export class UsersComponent implements OnInit {
     this.fs.deleteFollow(this.token, followed).subscribe(
 
       response => {
-
           var search = this.follows.indexOf(followed);
 
           if(search != -1) {
             this.follows.splice(search, 1);
           }
-
       },
       error => {
 
         var errorMessage = <any>error;
         console.log(errorMessage);
 
-      }
-
-    )
-
+      })
   }
 
   followUser(followed:any){
@@ -159,23 +154,13 @@ export class UsersComponent implements OnInit {
     var follow = new Follow('', this.users._id, followed);
 
     this.fs.addFollow(this.token, follow).subscribe(
-
         response => {
-
             console.log(response.follow)
             this.follows.push(follow);
-
         } ,
-
         error => {
           var errorMessage = <any>error;
           console.log(errorMessage);
-
-
         }
-
-    )
-
-  }
-
+    )}
 }

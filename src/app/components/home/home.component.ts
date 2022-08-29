@@ -22,8 +22,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.identity = this._userService.getIdentity();
-    console.log(this.identity);
-
   }
 
 }

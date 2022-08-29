@@ -1,21 +1,16 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+//Modulos
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { HomeComponent } from './components/home/home.component';
-import { UserEditComponent } from './components/user-edit/user-edit.component';
-import { UserComponent } from './components/user/user.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { UsersComponent } from './components/users/users.component';
-import { TimelineComponent } from './components/timeline/timeline.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MessagesRoutingModule } from "./messages-routing.module";
 
-import { MessagesModule } from './messages/messages.module';
+//Componentes
+import { MainComponent } from "./components/main/main.component";
+import { AddComponent } from "./components/add/add.component";
+import { ReceivedComponent } from "./components/received/received.component";
+import { SendedComponent } from "./components/sended/sended.component";
+
 
 import {A11yModule} from '@angular/cdk/a11y';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
@@ -41,6 +36,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
@@ -60,45 +56,24 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
-import { ProfileComponent } from './components/profile/profile.component';
-import { PublicationsComponent } from './components/publications/publications.component';
-import { FollowingComponent } from './components/following/following.component';
-import { FollowedComponent } from './components/followed/followed.component';
-import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 import { MomentModule } from 'angular2-moment';
-import { UserService } from './service/user.service';
-import { UserGuard } from './service/user.guard';
+import { UserGuard } from "../service/user.guard";
+import { UserService } from "../service/user.service";
 
-UserService
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    HomeComponent,
-    UserEditComponent,
-    UserComponent,
-    SidebarComponent,
-    UsersComponent,
-    TimelineComponent,
-    ProfileComponent,
-    PublicationsComponent,
-    FollowingComponent,
-    FollowedComponent
+  declarations:[
+    MainComponent,
+    AddComponent,
+    ReceivedComponent,
+    SendedComponent
   ],
-
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
+  imports:[
+    CommonModule,
     FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-
-    MessagesModule,
-
-    //ANGULAR MATERIAL
+    MessagesRoutingModule,
 
     A11yModule,
     CdkAccordionModule,
@@ -145,12 +120,19 @@ UserService
     OverlayModule,
     PortalModule,
     ScrollingModule,
-    MomentModule,
+    MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MomentModule
 
   ],
-  providers: [UserService, UserGuard],
-  bootstrap: [AppComponent]
+  exports:[
+    MainComponent,
+    AddComponent,
+    ReceivedComponent,
+    SendedComponent  ],
+
+  providers:[UserGuard, UserService]
 })
-export class AppModule { }
+
+export class MessagesModule{}

@@ -1,9 +1,8 @@
 body {
   margin: 0;
   padding: 0;
+  min-height: 100%;
 }
-
-
 
 .example-container {
   width: 100vw;
@@ -12,11 +11,9 @@ body {
   border: 1px solid #555;
 }
 
-
 .sidenav{
-  width: 240px;
+  width: 210px;
 }
-
 
 .example-spacer {
   flex: 1 1 auto;
@@ -36,7 +33,6 @@ body {
 }
 
 .button-menu{
-
   font-size: 1rem !important;
   position: relative;
   left:5px;
@@ -53,6 +49,7 @@ body {
 .mat-toolbar {
   background: #fff;
   color: rgba(0,0,0,.87);
+  height: 60px !important;
 }
 
 .user-avatar-img{
@@ -62,12 +59,20 @@ body {
   border-radius: 70px;
 }
 
-
 .active{
   background-color: rgb(228, 228, 228);
   border-radius: 10px;
-
   width: 95% !important;
   position: relative;
+}
 
+.mat-drawer-container {
+  background-color: #fafafa;
+  /* color: rgba(0,0,0,.87); */
+  border-style: none !important;
+}
+
+
+.logotipo{
+  cursor: pointer;
 }

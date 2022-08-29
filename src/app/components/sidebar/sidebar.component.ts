@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {  Router, Params, ActivatedRoute } from '@angular/router';
-import { Follow } from 'src/app/models/follow';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import {  Router, ActivatedRoute } from '@angular/router';
 import { Publication } from 'src/app/models/publication';
-import { User } from 'src/app/models/user';
 import { FollowService } from 'src/app/service/follow.service';
 import { GLOBAL } from 'src/app/service/global';
 import { PublicationService } from 'src/app/service/publication.service';
@@ -14,13 +12,13 @@ import { UserService } from 'src/app/service/user.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
   providers: [UserService, UploadService, FollowService, PublicationService]
-
 })
 
 export class SidebarComponent implements OnInit {
 
   public title: string;
   public users: any;
+  public user:any;
   public identity: any;
   public token:any ;
   public status: string;
@@ -37,16 +35,12 @@ export class SidebarComponent implements OnInit {
   public stats: any ;
   public publication: Publication;
 
-  csvInputChange(fileInputEvent: any) {
-    console.log(fileInputEvent.target.files[0]);
-  }
-
   constructor(private us: UserService,
-              private _route: ActivatedRoute,
               private up: UploadService,
               private fs:FollowService,
               private ps:PublicationService,
-              private _router:Router,
+              private _route: ActivatedRoute,
+              private _router:Router
               ) {
 
     this.title = 'Sidebar' ;
@@ -60,7 +54,6 @@ export class SidebarComponent implements OnInit {
   DoCheck(): void {
     this.identity = this.us.getIdentity();
     this.token = this.us.getToken();
-
     this.stats = this.us.getStats();
     console.log(this.identity);
   }
@@ -68,37 +61,53 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.identity = this.us.getIdentity();
     this.token = this.us.getToken();
-
     this.stats = this.us.getStats();
-    console.log(this.identity);
   }
 
-  onSubmit(){
+  public fileToUpload: Array<File>;
+  fileChangeEvent(fileInput: any){
+    this.fileToUpload = <Array<File>>fileInput.target.files ;
+  }
 
+  onSubmit(form:any){
     this.ps.addPublication(this.publication).subscribe(
-
         response => {
-
           if(response.publication){
-            // this.publication = response.publication ;
-            this.status = 'success';
+
+            //Subir Imagen
+
+            if(this.fileToUpload && this.fileToUpload.length ){
+              this.up.makeFileRequest(this.url+'upload-image-pub/'+response.publication._id, [], this.fileToUpload, this.token, 'image')
+              .then((result:any) => {
+                this.publication.file = result.image ;
+                this.status = 'success';
+                form.reset();
+                this._router.navigate(['./timeline']);
+              });
+            }else{
+             form.reset();
+             this._router.navigate(['/timeline'])
+            }
+
 
           }else{
             this.status = 'error';
           }
-
         },
-
         error => {
-
           var errorMessage = <any>error;
           console.log(errorMessage);
           if(errorMessage != null){
             this.status = 'error';
           }
-
         }
-
     )}
+
+  //Output
+  @Output() sended = new EventEmitter();
+  sendPublication(event:any){
+    console.log(event);
+    this.sended.emit({send:'true'})
+  }
 
 }

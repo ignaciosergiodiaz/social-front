@@ -1,61 +1,73 @@
-<mat-drawer-container class="example-container " autosize>
+<mat-drawer-container class="example-container" autosize >
+  <mat-toolbar class="mat-elevation-z1" *ngIf="identity">
 
-  <mat-toolbar class="mat-elevation-z3">
+      <div class="col-lg-1"></div>
 
-    <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-
-    <span>Pepole</span>
-
-    <div class="example-spacer"></div>
-
-    <div class="avatar-btn" [matMenuTriggerFor]="menu" style="cursor:pointer;">
-      <img src="{{url + 'get-image-user/'+identity.image}}" class="avatar-img" alt="">
-    </div>
-
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>account_circle</mat-icon>
-        <span>Mi Perfil</span>
+      <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
       </button>
 
-      <button mat-menu-item>
-        <mat-icon>logout</mat-icon>
-        <span>Cerrar Sesión</span>
-      </button>
-    </mat-menu>
+      <span class="logotipo" [routerLink]="['/home']">Pepole</span>
+
+      <div class="col-8 col-sm-10 col-lg-9"></div>
+
+      <div class="avatar-btn" [matMenuTriggerFor]="menu" style="cursor:pointer;">
+        <img src="{{url + 'get-image-user/'+identity.image}}" *ngIf=" identity.image" class="avatar-img" alt="">
+      </div>
+
+      <mat-menu #menu="matMenu">
+        <button [routerLink]="['/perfil', identity._id]"  mat-menu-item>
+          <mat-icon>account_circle</mat-icon>
+          <span>Mi Perfil</span>
+        </button>
+
+        <button [routerLink]="['/mis-datos']"  mat-menu-item>
+          <mat-icon>edit</mat-icon>
+          <span>Configurar Cuenta</span>
+        </button>
+
+        <button (click)="logout()" mat-menu-item>
+          <mat-icon>logout</mat-icon>
+          <span>Cerrar Sesión</span>
+        </button>
+      </mat-menu>
 
   </mat-toolbar>
 
-  <mat-drawer #drawer class="sidenav mat-elevation-z4" mode="side" opened>
+  <mat-drawer #drawer class="sidenav mat-elevation-z4" mode="side">
 
     <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
 
     <mat-list>
       <mat-list-item [routerLink]="['/home']" [routerLinkActive]="['active']" class="button-menu">
-        <span class="material-icons icon-sidenav  ">
-          home
-        </span>
+          <span class="icon-sidenav material-icons-outlined">
+           cottage
+          </span>
         Inicio
       </mat-list-item>
       <mat-list-item [routerLink]="['/timeline']" [routerLinkActive]="['active']" class="button-menu">
-        <span class="material-icons icon-sidenav">
-          view_timeline
-        </span>
+        <span class="material-icons-outlined icon-sidenav">
+          rss_feed
+          </span>
         Publicaciones
       </mat-list-item>
       <mat-list-item [routerLink]="['gente/', 1]" [routerLinkActive]="['active']" class="button-menu">
-        <span class="material-icons icon-sidenav" >
-          groups
+        <span class="icon-sidenav material-icons-outlined">
+        groups
         </span>
         Gente
+      </mat-list-item>
+      <mat-list-item [routerLink]="['mensajes/']" [routerLinkActive]="['active']" class="button-menu">
+        <span class=" icon-sidenav material-icons-outlined" >
+          textsms
+        </span>
+        Mensajes
       </mat-list-item>
      </mat-list>
   </mat-drawer>
 
   <div class="example-sidenav-content">
-    <div class="container mt-4">
+    <div class=" mt-4">
       <router-outlet></router-outlet>
     </div>
   </div>

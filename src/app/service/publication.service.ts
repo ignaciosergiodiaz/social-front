@@ -27,12 +27,21 @@ export class PublicationService {
 
   }
 
-  getPublications(page: any = 1 ):Observable<any>{
+  getPublications(token:string, page: any = 1 ):Observable<any>{
 
     let headers = new HttpHeaders().set('Content-type', 'application/json')
                                    .set('Authorization', this.getToken()) ;
 
     return this._http.get<Publication>(this.url+'publications/'+page, {headers:headers})
+
+  }
+
+  getPublicationsUser(  token:string, user:any, page: any = 1 ):Observable<any>{
+
+    let headers = new HttpHeaders().set('Content-type', 'application/json')
+                                   .set('Authorization', this.getToken()) ;
+
+    return this._http.get<Publication>(this.url+'publications-user/'+user+'/'+page, {headers:headers})
 
   }
 
@@ -57,6 +66,4 @@ export class PublicationService {
 
     return this.token ;
 
-  }
-
-}
+  }}
