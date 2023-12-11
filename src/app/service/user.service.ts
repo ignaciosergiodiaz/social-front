@@ -26,14 +26,11 @@ export class UserService {
 
     let headers = new HttpHeaders().set('Content-Type', 'application/json')
                                    .set('Authorization', this.getToken());
-
-
         if(userId != null){
           return this._http.get(this.url+'counters/'+userId, {headers: headers})
         } else{
           return this._http.get(this.url+'counters', {headers:headers});
         }
-
   }
 
   getStats(){
@@ -129,6 +126,5 @@ export class UserService {
 
     return this._http.post<User>(this.url + 'login', params, { headers: headers })
   }
-
 
 }

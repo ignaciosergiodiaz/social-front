@@ -12,7 +12,6 @@ import { UserComponent } from './components/user/user.component';
 import { UsersComponent } from './components/users/users.component';
 import { UserGuard } from './service/user.guard';
 
-
 const routes: Routes = [
  {path:'home', component: HomeComponent, canActivate:[UserGuard]},
  {path:'login', component:LoginComponent},
